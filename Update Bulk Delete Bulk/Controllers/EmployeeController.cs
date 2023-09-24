@@ -16,7 +16,7 @@ namespace Update_Bulk_Delete_Bulk.Controllers
         {
             List<Employee> objectCategoryList = _db.Employees.ToList();
 
-          //_db.Employees.ExecuteDelete();// delete all database table 
+          // _db.Employees.ExecuteDelete();// delete all database table 
 
             _db.Employees.Where(e => e.EmployeeId > 4).ExecuteDelete();
 

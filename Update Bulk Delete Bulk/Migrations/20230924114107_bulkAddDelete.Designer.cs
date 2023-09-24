@@ -11,7 +11,7 @@ using Update_Bulk_Delete_Bulk.Data;
 namespace Update_Bulk_Delete_Bulk.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230924104729_bulkAddDelete")]
+    [Migration("20230924114107_bulkAddDelete")]
     partial class bulkAddDelete
     {
         /// <inheritdoc />
