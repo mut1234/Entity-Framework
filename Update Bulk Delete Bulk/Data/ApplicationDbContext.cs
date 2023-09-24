@@ -15,6 +15,7 @@ namespace Update_Bulk_Delete_Bulk.Data
         }
         public DbSet<Employee> Employees { get; set; }
 
+        public DbSet<Blog> Blogs { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
@@ -26,6 +27,11 @@ namespace Update_Bulk_Delete_Bulk.Data
                 new Employee { EmployeeId = 5, Name = "mhmod", Email = "mhmod4323@gmail.com" },
                 new Employee { EmployeeId = 6, Name = "mustafa", Email = "mustafa4323@gmail.com" }
                 );
+
+            modelBuilder.Entity<Blog>()
+                .HasOne(e => e.blogImage)
+                .WithOne(e => e.Blog)
+                .HasForeignKey<BlogImage>(e => e.BolgForeignKey);
         }
 
 
