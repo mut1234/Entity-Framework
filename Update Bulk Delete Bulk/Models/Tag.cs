@@ -4,9 +4,9 @@
     {
         public int TagId { get; set; }
 
-        public ICollection<Post> Posts { get; set; }
+        public ICollection<Post> Posts { get; set; }// without 3rd entity
 
-       // public List<PostTag> PostTags { get; set; }
+        public List<PostTag> PostTags { get; set; }
 
 
     }

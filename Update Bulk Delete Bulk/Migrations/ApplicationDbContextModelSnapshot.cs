@@ -21,21 +21,6 @@ namespace Update_Bulk_Delete_Bulk.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("PostTag", b =>
-                {
-                    b.Property<int>("PostsPostId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TagsTagId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PostsPostId", "TagsTagId");
-
-                    b.HasIndex("TagsTagId");
-
-                    b.ToTable("PostTagsTest", (string)null);
-                });
-
             modelBuilder.Entity("Update_Bulk_Delete_Bulk.Models.Blog", b =>
                 {
                     b.Property<int>("Id")
@@ -171,6 +156,24 @@ namespace Update_Bulk_Delete_Bulk.Migrations
                     b.ToTable("Posts");
                 });
 
+            modelBuilder.Entity("Update_Bulk_Delete_Bulk.Models.PostTag", b =>
+                {
+                    b.Property<int>("postId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TagId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Addedon")
+                        .HasColumnType("int");
+
+                    b.HasKey("postId", "TagId");
+
+                    b.HasIndex("TagId");
+
+                    b.ToTable("PostTag");
+                });
+
             modelBuilder.Entity("Update_Bulk_Delete_Bulk.Models.Tag", b =>
                 {
                     b.Property<int>("TagId")
@@ -184,21 +187,6 @@ namespace Update_Bulk_Delete_Bulk.Migrations
                     b.ToTable("Tags");
                 });
 
-            modelBuilder.Entity("PostTag", b =>
-                {
-                    b.HasOne("Update_Bulk_Delete_Bulk.Models.Post", null)
-                        .WithMany()
-                        .HasForeignKey("PostsPostId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Update_Bulk_Delete_Bulk.Models.Tag", null)
-                        .WithMany()
-                        .HasForeignKey("TagsTagId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("Update_Bulk_Delete_Bulk.Models.BlogImage", b =>
                 {
                     b.HasOne("Update_Bulk_Delete_Bulk.Models.Blog", "Blog")
@@ -210,10 +198,39 @@ namespace Update_Bulk_Delete_Bulk.Migrations
                     b.Navigation("Blog");
                 });
 
+            modelBuilder.Entity("Update_Bulk_Delete_Bulk.Models.PostTag", b =>
+                {
+                    b.HasOne("Update_Bulk_Delete_Bulk.Models.Tag", "Tag")
+                        .WithMany("PostTags")
+                        .HasForeignKey("TagId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Update_Bulk_Delete_Bulk.Models.Post", "Post")
+                        .WithMany("PostTags")
+                        .HasForeignKey("postId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+
+                    b.Navigation("Tag");
+                });
+
             modelBuilder.Entity("Update_Bulk_Delete_Bulk.Models.Blog", b =>
                 {
                     b.Navigation("blogImage")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Update_Bulk_Delete_Bulk.Models.Post", b =>
+                {
+                    b.Navigation("PostTags");
+                });
+
+            modelBuilder.Entity("Update_Bulk_Delete_Bulk.Models.Tag", b =>
+                {
+                    b.Navigation("PostTags");
                 });
 #pragma warning restore 612, 618
         }

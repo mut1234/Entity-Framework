@@ -37,40 +37,41 @@ namespace Update_Bulk_Delete_Bulk.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "PostTagsTest",
+                name: "PostTag",
                 columns: table => new
                 {
-                    PostsPostId = table.Column<int>(type: "int", nullable: false),
-                    TagsTagId = table.Column<int>(type: "int", nullable: false)
+                    postId = table.Column<int>(type: "int", nullable: false),
+                    TagId = table.Column<int>(type: "int", nullable: false),
+                    Addedon = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_PostTagsTest", x => new { x.PostsPostId, x.TagsTagId });
+                    table.PrimaryKey("PK_PostTag", x => new { x.postId, x.TagId });
                     table.ForeignKey(
-                        name: "FK_PostTagsTest_Posts_PostsPostId",
-                        column: x => x.PostsPostId,
+                        name: "FK_PostTag_Posts_postId",
+                        column: x => x.postId,
                         principalTable: "Posts",
                         principalColumn: "PostId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PostTagsTest_Tags_TagsTagId",
-                        column: x => x.TagsTagId,
+                        name: "FK_PostTag_Tags_TagId",
+                        column: x => x.TagId,
                         principalTable: "Tags",
                         principalColumn: "TagId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_PostTagsTest_TagsTagId",
-                table: "PostTagsTest",
-                column: "TagsTagId");
+                name: "IX_PostTag_TagId",
+                table: "PostTag",
+                column: "TagId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "PostTagsTest");
+                name: "PostTag");
 
             migrationBuilder.DropTable(
                 name: "Posts");

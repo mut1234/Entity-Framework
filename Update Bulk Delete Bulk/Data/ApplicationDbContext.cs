@@ -20,11 +20,11 @@ namespace Update_Bulk_Delete_Bulk.Data
         //one to one
         public DbSet<Blog> Blogs { get; set; }
 
-       //---------------------------------
+        //---------------------------------
 
-       //many to many
-       DbSet<Post> Posts { get; set; }
-       DbSet<Tag> Tags { get; set; }
+        //many to many
+        DbSet<Post> Posts { get; set; }
+        DbSet<Tag> Tags { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -49,10 +49,10 @@ namespace Update_Bulk_Delete_Bulk.Data
 
             //many to many Fluent API
 
-            modelBuilder.Entity<Post>()
-              .HasMany(e => e.Tags)
-              .WithMany(t => t.Posts)
-              .UsingEntity(j => j.ToTable("PostTagsTest"));// name of join table
+            //modelBuilder.Entity<Post>()
+            //  .HasMany(e => e.Tags)
+            //  .WithMany(t => t.Posts)
+            //  .UsingEntity(j => j.ToTable("PostTagsTest"));// name of join table
 
 
 
@@ -60,32 +60,28 @@ namespace Update_Bulk_Delete_Bulk.Data
 
 
 
-            //modelBuilder.Entity<Post>()
-            //  .HasMany(e => e.Tags)
-            //  .WithMany(t => t.Posts)
-            //  .UsingEntity<PostTag>(
+            modelBuilder.Entity<Post>()
+              .HasMany(e => e.Tags)
+              .WithMany(t => t.Posts)
+              .UsingEntity<PostTag>(
 
-            //    j => j
-            //    .HasOne(e => e.Tag)
-            //    .WithMany(t => t.PostTags)
-            //    .HasForeignKey(j => j.TagId),
+                j => j
+                .HasOne(e => e.Tag)
+                .WithMany(t => t.PostTags)
+                .HasForeignKey(j => j.TagId),
 
+                      j => j
+                .HasOne(e => e.Post)
+                .WithMany(t => t.PostTags)
+                .HasForeignKey(j => j.postId),
 
-            //    j => j
-            //    .HasOne(e => e.Post)
-            //    .WithMany(t => t.PostTags)
-            //    .HasForeignKey(j => j.postId),
-
-
-            //    j =>
-            //    {
-            //        j.Property(e => e.AddedOn).HasDefaultValue("GETDATE");
-            //        j.HasKey(e => new { e.postId, e.TagId });
-            //    }
+                j =>
+                {
+                    j.HasKey(e => new { e.postId, e.TagId });
+                }
 
 
-
-            //   ) ;
+               );
 
         }
 

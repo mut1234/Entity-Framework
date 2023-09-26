@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Update_Bulk_Delete_Bulk.Models
 {
@@ -8,8 +8,8 @@ namespace Update_Bulk_Delete_Bulk.Models
         public Post Post { get; set; }
 
         public int TagId { get; set; }
-        public Post Tag { get; set; }
+        public Tag Tag { get; set; }
 
-        public DateTime AddedOn { get; set; }
+        public DataType Addedon { get; set; }
     }
 }
